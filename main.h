@@ -30,6 +30,5 @@ void handle_hexa(const char *format, va_list args);
 
 //Custom printf
 int _printf(const char *format, ...);
-int main(void);
 
 #endif
