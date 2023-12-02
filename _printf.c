@@ -6,7 +6,7 @@
 * Return: void
 */
 
-void _printf(const char *format, ...)
+int _printf(const char *format, ...)
 {
 	va_list args;
 
@@ -14,6 +14,9 @@ void _printf(const char *format, ...)
 
 	process_format1(format, args);
 	process_format2(format, args);
+	process_format3(format, args);
+	handle_hexa(format, args);
 
 	va_end(args);
+	return (0);
 }
