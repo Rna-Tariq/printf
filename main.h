@@ -2,25 +2,28 @@
 #define MAIN_H
 
 #include <stdarg.h>
-#include <stdio.h>
 #include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include <limits.h>
 
-ssize_t _write(const void *buf, size_t count);
-void _putchar(char ch);
-void _puts(const char *str);
+#define MAX_BUF_SIZE 1024
 
-void _int_to_str(int val, char *buf);
-void _double_to_str(double val, char *buf, int buf_size, int precision);
+void _putchar(char ch, char *buf, int *buf_idx, int *char_count);
+void _puts(const char *str, char *buffer, int *buffer_index, int *char_count);
+char *_strcpy(char *dest, const char *src);
+size_t _strlen(const char *str);
+
+void _int_to_str(int val, char *buf, int *buf_idx, int *char_count);
 
 void _putBinary(unsigned int val);
 void _putUnsigned(unsigned int val);
 void _putOctal(unsigned int val);
 void _putHexa(unsigned int val, int uppercase);
 
-void process_format1(const char *format, va_list args);
-void process_format2(const char *format, va_list args);
+int process_format1(const char *format, va_list args);
+int handle_percent(const char *format, va_list args);
+int process_format2(const char *format, va_list args);
 void process_format3(const char *format, va_list args);
 void handle_hexa(const char *format, va_list args);
 

@@ -3,76 +3,45 @@
 /**
 * _int_to_str - Custom function to convert an integer to a string.
 * @val: value.
-* @buf: buffer.
+* @buf: buf.
+* @buf_idx: buffer index
+* @char_count: character counter
 * Return: void.
 */
 
-void _int_to_str(int val, char *buf)
+void _int_to_str(int val, char *buf, int *buf_idx, int *char_count)
 {
-	int i = 0;
-	int j;
-	int is_negative = 0;
-
-	if (val < 0)
-	{
-		is_negative = 1;
-		val = -val;
-	}
+	int temp = val;
+	int num_digits = 0;
+	int i;
 
 	do {
-		buf[i++] = (char)(val % 10 + '0');
-		val /= 10;
-	} while (val > 0);
-
-	if (is_negative)
-	{
-		buf[i++] = '-';
-	}
-
-	for (j = 0; j < i / 2; j++)
-	{
-		char tmp = buf[j];
-
-		buf[j] = buf[i - j - 1];
-		buf[i - j - 1] = tmp;
-	}
-	buf[i] = '\0';
-}
-
-/**
-* _double_to_str - Custom function to convert a double to a string.
-* @val: decimal value.
-* @buf: buffer.
-* @buf_size: buffer size.
-* @precision: the amount of information that is
-* conveyed by a number in terms of its digits.
-* Return: void
-*/
-
-void _double_to_str(double val, char *buf, int buf_size, int precision)
-{
-	int i, int_part, digit;
-	double fractional_part;
+		temp /= 10;
+		num_digits++;
+	} while (temp != 0);
 
 	if (val < 0)
+		num_digits++;
+
+	if (*buf_idx + num_digits >= MAX_BUF_SIZE)
 	{
-		_putchar('-');
-		val = -val;
+		write(STDOUT_FILENO, buf, *buf_idx);
+		*buf_idx = 0;
 	}
 
-	int_part = (int)val;
+	i = *buf_idx + num_digits;
+	buf[i--] = '\0';
 
-	_int_to_str(int_part, buf);
-	_putchar('.');
+	do {
+		buf[i--] = abs(val % 10) + '0';
+		val /= 10;
+	} while (val != 0);
 
-	fractional_part = val - int_part;
-
-	for (i = 0; i < precision; i++)
+	if (i == *buf_idx)
 	{
-		fractional_part *= 10;
-		digit = (int)fractional_part;
-		_putchar((char)(digit + '0'));
-		fractional_part -= digit;
+		buf[i--] = '-';
 	}
-	buf[buf_size - 1] = '\0';
+
+	*buf_idx += num_digits;
+	*char_count += num_digits;
 }

@@ -1,24 +1,21 @@
 #include "main.h"
 
 /**
-* _write - Custom write function to output characters
-* @buf: buffer.
-* @count: digits number.
-* Return: output.
-*/
-
-ssize_t _write(const void *buf, size_t count)
-{
-	return (write(STDOUT_FILENO, buf, count));
-}
-
-/**
 * _putchar - Custom putchar function
 * @ch: character to print.
+* @buf: buffer
+* @buf_idx: buffer index
+* @char_count: character counter
 * Return: void.
 */
 
-void _putchar(char ch)
+void _putchar(char ch, char *buf, int *buf_idx, int *char_count)
 {
-	_write(&ch, 1);
+	if (*buf_idx == MAX_BUF_SIZE - 1)
+	{
+		write(STDOUT_FILENO, buf, *buf_idx);
+		*buf_idx = 0;
+	}
+	buf[(*buf_idx)++] = ch;
+	(*char_count)++;
 }

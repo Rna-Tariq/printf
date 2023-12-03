@@ -7,8 +7,12 @@
 * Return: void
 */
 
-void process_format2(const char *format, va_list args)
+int process_format2(const char *format, va_list args)
 {
+	char buf[MAX_BUF_SIZE];
+	int buf_idx = 0;
+	int char_count = 0;
+
 	while (*format)
 	{
 		if (*format == '%' && format++)
@@ -18,23 +22,30 @@ void process_format2(const char *format, va_list args)
 				case 'd':
 				{
 					int val = va_arg(args, int);
-					char buf[20];
 
-					_int_to_str(val, buf);
-					_puts(buf);
+					_int_to_str(val, buf, &buf_idx, &char_count);
 					break;
 				}
-				case 'f':
+				case 'i':
 				{
-					double val = va_arg(args, double);
-					char buf[20];
+					int val = va_arg(args, int);
 
-					_double_to_str(val, buf, sizeof(buf), 2);
-					_puts(buf);
+					_int_to_str(val, buf, &buf_idx, &char_count);
+					break;
+				}
+				default:
+				{
+					_putchar(*format, buf, &buf_idx, &char_count);
 					break;
 				}
 			}
-		}
+		} else
+			_putchar(*format, buf, &buf_idx, &char_count);
 		format++;
 	}
+	write(STDOUT_FILENO, buf, buf_idx);
+
+	va_end(args);
+
+	return (char_count);
 }
