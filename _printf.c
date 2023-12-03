@@ -12,8 +12,7 @@ int _printf(const char *format, ...)
 
 	va_start(args, format);
 
-	process_format1(format, args);
-	handle_percent(format, args);
+	process_format2(format, args);
 
 	va_end(args);
 	return (0);
