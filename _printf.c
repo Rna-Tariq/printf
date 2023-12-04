@@ -60,10 +60,8 @@ _putchar(*format, buffer, &buffer_index, &char_count);
 format++;
 }
 
-// Ensure null-terminated string
 buffer[buffer_index] = '\0';
 
-// Writing to stdout
 write(STDOUT_FILENO, buffer, buffer_index);
 
 va_end(args);
