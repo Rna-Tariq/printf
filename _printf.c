@@ -22,7 +22,7 @@ write(1, buffer, buffer_index);
 
 va_end(args);
 
-return char_count;
+return (char_count);
 }
 
 /**
@@ -35,7 +35,7 @@ return char_count;
  * Return: void.
  */
 
-static void process_format(const char *format, va_list args, char *buffer, int *buf_idx, int *char_count)
+void process_format(const char *format, va_list args, char *buffer, int *buf_idx, int *char_count)
 {
 while (*format)
 {
@@ -69,7 +69,7 @@ default:
 _putchar(*format, buffer, buf_idx, char_count);
 break;
 }
-} 
+}
 else
 _putchar(*format, buffer, buf_idx, char_count);
 
