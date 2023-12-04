@@ -24,7 +24,7 @@ write(1, buffer, buffer_index);
 
 va_end(args);
 
-return (0);
+return (char_count);
 }
 
 /**
