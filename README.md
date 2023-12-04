@@ -5,11 +5,11 @@ Task 0 : Almost Done
 
 Task 1 : Done
 
-Task 2 :
+Task 2 : 
 
 Task 3 :
 
-Task 4 :
+Task 4 : Almost Done
 
 <<<<<<< HEAD
 Task 5 : Almost Done
