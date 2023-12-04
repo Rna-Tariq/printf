@@ -14,6 +14,8 @@ int char_count = 0;
 va_list args;
 va_start(args, format);
 
+if (format == NULL)
+return (-1);
 process_format(format, args, buffer, &buffer_index, &char_count);
 
 buffer[buffer_index] = '\0';
