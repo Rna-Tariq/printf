@@ -25,6 +25,8 @@ int process_format1(const char *format, va_list args);
 int handle_percent(const char *format, va_list args);
 int process_format2(const char *format, va_list args);
 void process_format3(const char *format, va_list args);
+void process_format (const char *format, va_list args,char *buffer,
+int *buf_idx, int *char_count);
 void handle_hexa(const char *format, va_list args);
 
 int _printf(const char *format, ...);
