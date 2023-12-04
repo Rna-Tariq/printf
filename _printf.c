@@ -35,7 +35,8 @@ return (char_count);
  * Return: void.
  */
 
-void process_format(const char *format, va_list args, char *buffer, int *buf_idx, int *char_count)
+void process_format(const char *format, va_list args,
+char *buffer, int *buf_idx, int *char_count)
 {
 while (*format)
 {
