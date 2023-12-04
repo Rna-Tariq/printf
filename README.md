@@ -3,7 +3,7 @@ Team: Moutaz Mahmoud, Rna Tariq.
 
 Task 0 : Almost Done.
 
-Task 1 : Done
+Task 1 : Done.
 
 Task 2 : Not Yet
 
