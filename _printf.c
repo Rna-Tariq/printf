@@ -1,69 +1,82 @@
 #include "main.h"
 
 /**
-* _printf - is a function that selects the correct flag to print.
-* @format: identifier to look for.
-* Return: void
-*/
-
+ * _printf - Function to print formatted output.
+ * @format: Format specifier.
+ * Return: Number of characters printed (excluding null byte).
+ */
 int _printf(const char *format, ...)
 {
-	char buffer[MAX_BUF_SIZE];
-	int buffer_index = 0;
-	int char_count = 0;
+char buffer[MAX_BUF_SIZE];
+int buffer_index = 0;
+int char_count = 0;
 
-	va_list args;
+va_list args;
+va_start(args, format);
 
-	va_start(args, format);
+if (format == NULL)
+return (-1);
+process_format(format, args, buffer, &buffer_index, &char_count);
 
-	while (*format)
-	{
-		if (*format == '%' && format++)
-		{
-			switch (*format)
-			{
-				case 'c':
-				{
-					char ch = va_arg(args, int);
+buffer[buffer_index] = '\0';
 
-					_putchar(ch, buffer, &buffer_index, &char_count);
-					break;
-				}
-				case 's':
-				{
-					const char *str = va_arg(args, const char *);
+write(1, buffer, buffer_index);
 
-					_puts(str, buffer, &buffer_index, &char_count);
-					break;
-				}
-				case 'd':
-				case 'i':
-				{
-					int value = va_arg(args, int);
+va_end(args);
 
-					_int_to_str(value, buffer, &buffer_index, &char_count);
-					break;
-				}
-				case '%':
-				{
-					_putchar('%', buffer, &buffer_index, &char_count);
-					break;
-				}
-				default:
-				{
-					_putchar(*format, buffer, &buffer_index, &char_count);
-					break;
-				}
-			}
-		} else
-			_putchar(*format, buffer, &buffer_index, &char_count);
+return (char_count);
+}
 
-		format++;
-	}
+/**
+ * process_format - Process the format specifier and handle printing.
+ * @format: Format specifier.
+ * @args: Variable arguments.
+ * @buffer: Buffer to store characters.
+ * @buf_idx: Buffer index.
+ * @char_count: Character count.
+ * Return: void.
+ */
 
-	write(STDOUT_FILENO, buffer, buffer_index);
+void process_format(const char *format, va_list args,
+char *buffer, int *buf_idx, int *char_count)
+{
+while (*format)
+{
+if (*format == '%' && format++)
+{
+switch (*format)
+{
+case 'c':
+{
+char ch = va_arg(args, int);
+_putchar(ch, buffer, buf_idx, char_count);
+break;
+}
+case 's':
+{
+const char *str = va_arg(args, const char *);
+_puts(str, buffer, buf_idx, char_count);
+break;
+}
+case 'd':
+case 'i':
+{
+int value = va_arg(args, int);
+_int_to_str(value, buffer, buf_idx, char_count);
+break;
+}
+case '%':
+_putchar('%', buffer, buf_idx, char_count);
+break;
+default:
+_putchar('%', buffer, buf_idx, char_count);
+_putchar(*format, buffer, buf_idx, char_count);
+break;
+}
+}
+else
+_putchar(*format, buffer, buf_idx, char_count);
 
-	va_end(args);
-
-	return (char_count);
+format++;
+}
 }
