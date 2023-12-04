@@ -69,6 +69,7 @@ case '%':
 _putchar('%', buffer, buf_idx, char_count);
 break;
 default:
+_putchar('%', buffer, buf_idx, char_count);
 _putchar(*format, buffer, buf_idx, char_count);
 break;
 }
