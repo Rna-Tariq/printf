@@ -13,7 +13,6 @@ int buffer_index = 0;
 int char_count = 0;
 
 va_list args;
-
 va_start(args, format);
 
 while (*format)
