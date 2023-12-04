@@ -53,7 +53,7 @@ default:
 _putchar(*format, buffer, &buffer_index, &char_count);
 break;
 }
-} 
+}
 else
 _putchar(*format, buffer, &buffer_index, &char_count);
 
