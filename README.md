@@ -1,5 +1,5 @@
 Recreating printf method in C.
-Team: Moutaz Mahmoud, Rna Tariq.
+Team: Rna Tariq, Moutaz Mahmoud.
 
 Task 0 : Almost Done (25 points out of 27).
 
