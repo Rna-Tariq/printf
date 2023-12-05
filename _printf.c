@@ -7,8 +7,7 @@
  */
 int _printf(const char *format, ...)
 {
-char buffer[MAX_BUF_SIZE];
-int buffer_index = 0;
+char *buf = NULL;
 int char_count = 0;
 
 va_list args;
@@ -16,11 +15,12 @@ va_start(args, format);
 
 if (format == NULL)
 return (-1);
-process_format(format, args, buffer, &buffer_index, &char_count);
+process_format(format, args, &buf, &char_count);
 
-buffer[buffer_index] = '\0';
 
-write(1, buffer, buffer_index);
+write(STDOUT_FILENO, buf, char_count);
+
+free(buf);
 
 va_end(args);
 
@@ -31,15 +31,15 @@ return (char_count);
  * process_format - Process the format specifier and handle printing.
  * @format: Format specifier.
  * @args: Variable arguments.
- * @buffer: Buffer to store characters.
- * @buf_idx: Buffer index.
+ * @buf: Buffer to store characters.
  * @char_count: Character count.
  * Return: void.
  */
 
 void process_format(const char *format, va_list args,
-char *buffer, int *buf_idx, int *char_count)
+char **buf, int *char_count)
 {
+int buf_idx = 0;
 while (*format)
 {
 if (*format == '%' && format++)
@@ -49,33 +49,33 @@ switch (*format)
 case 'c':
 {
 char ch = va_arg(args, int);
-_putchar(ch, buffer, buf_idx, char_count);
+_putchar(ch, buf, char_count);
 break;
 }
 case 's':
 {
 const char *str = va_arg(args, const char *);
-_puts(str, buffer, buf_idx, char_count);
+_puts(str, buf, char_count);
 break;
 }
 case 'd':
 case 'i':
 {
-int value = va_arg(args, int);
-_int_to_str(value, buffer, buf_idx, char_count);
+int val = va_arg(args, int);
+_int_to_str(val, *buf, &buf_idx, char_count);
 break;
 }
 case '%':
-_putchar('%', buffer, buf_idx, char_count);
+_putchar('%', buf, char_count);
 break;
 default:
-_putchar('%', buffer, buf_idx, char_count);
-_putchar(*format, buffer, buf_idx, char_count);
+_putchar('%', buf, char_count);
+_putchar(*format, buf, char_count);
 break;
 }
 }
 else
-_putchar(*format, buffer, buf_idx, char_count);
+_putchar(*format, buf, char_count);
 
 format++;
 }

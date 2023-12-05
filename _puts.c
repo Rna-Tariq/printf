@@ -4,22 +4,38 @@
 * _puts - Custom puts function.
 * @str: a pointer to the string to be printed.
 * @buf: buffer
-* @buf_idx: buffer index
 * @char_count: character counter
 * Return: void.
 */
 
-void _puts(const char *str, char *buf, int *buf_idx, int *char_count)
+void _puts(const char *str, char **buf, int *char_count)
 {
-	size_t len = _strlen(str);
+	int str_len = 0;
+	int i;
+	char *new_buf;
 
-	if (*buf_idx + len >= MAX_BUF_SIZE)
+	while (str[str_len] != '\0')
+		str_len++;
+
+	new_buf = (char *)malloc((*char_count + str_len + 1) * sizeof(char));
+
+	if (new_buf == NULL)
 	{
-		write(STDOUT_FILENO, buf, *buf_idx);
-		*buf_idx = 0;
+		write(STDOUT_FILENO, "Memory allocation failed\n", 26);
+		exit(1);
 	}
 
-	_strcpy(buf + *buf_idx, str);
-	*buf_idx += len;
-	*char_count += len;
+	if (*buf != NULL)
+	{
+		for (i = 0; i < *char_count; i++)
+			new_buf[i] = (*buf)[i];
+	}
+	free(*buf);
+
+	for (i = 0; i < str_len; i++)
+		new_buf[*char_count + i] = str[i];
+
+	new_buf[*char_count + str_len] = '\0';
+	*buf = new_buf;
+	*char_count += str_len;
 }

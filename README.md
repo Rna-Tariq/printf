@@ -11,10 +11,6 @@ Task 3 : Not Yet.
 
 Task 4 : Almost Done.
 
-<<<<<<< HEAD
 Task 5 : Almost Done.
-=======
-Task 5 :
->>>>>>> refs/remotes/origin/master
 
 Task 6 : Not Yet.
