@@ -4,30 +4,18 @@
 * _putchar - Custom putchar function
 * @ch: character to print.
 * @buf: buffer
+* @buf_idx: buffer index
 * @char_count: character counter
 * Return: void.
 */
 
-void _putchar(char ch, char **buf, int *char_count)
+void _putchar(char ch, char *buf, int *buf_idx, int *char_count)
 {
-	int i;
-	char *new_buf = (char *)malloc((*char_count + 2) * sizeof(char));
-
-	if (new_buf == NULL)
+	if (*buf_idx == MAX_BUF_SIZE - 1)
 	{
-		write(STDOUT_FILENO, "Memory allocation failed\n", 26);
-		exit(1);
+		write(STDOUT_FILENO, buf, *buf_idx);
+		*buf_idx = 0;
 	}
-
-	if (*buf != NULL)
-	{
-		for (i = 0; i < *char_count; i++)
-			new_buf[i] = (*buf)[i];
-	}
-	free(*buf);
-
-	new_buf[*char_count] = ch;
-	new_buf[*char_count + 1] = '\0';
-	*buf = new_buf;
+	buf[(*buf_idx)++] = ch;
 	(*char_count)++;
 }
