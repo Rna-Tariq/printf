@@ -1,9 +1,9 @@
 Recreating printf method in C.
-Team: Moutaz Mahmoud, Rna Tariq.
+Team: Rna Tariq, Moutaz Mahmoud.
 
-Task 0 : Almost Done.
+Task 0 : Almost Done (25 points out of 27).
 
-Task 1 : Done.
+Task 1 : Done 100% .
 
 Task 2 : Not Yet.
 
